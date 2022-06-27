@@ -1,0 +1,48 @@
+---
+- name: Delegate
+  hosts: all
+  become: true
+
+  vars:
+    myText: Privet
+
+  tasks:
+    - name: Ping test
+      ping:
+
+    - name: Create file1
+      copy:
+        dest: /home/vagrant/file1.txt
+        content: |
+          Text Line1
+          Text {{myText}}
+      delegate_to: ubuntu
+
+    - name: Create file2
+      copy:
+        dest: /home/vagrant/file2.txt
+        content: |
+          Text Line1
+          Text line2
+
+    - name: Unregister Server from LoadBalancer
+      shell: echo this server {{inventory_hostname}} was unregistered >> /home/log.txt
+      delegate_to: 127.0.0.1
+
+    - name: Update db
+      shell: echo Updating db
+      run_once: true
+
+    - name: Reboot my servers
+      shell: sleep 3 && reboot now
+      async: 1
+      poll: 0
+
+    - name: Wait till my server will come up
+      wait_for:
+        host: '{{ inventory_hostname }}'
+        state: started
+        delay: 5
+        timeout: 40
+      delegate_to: 127.0.0.1
+

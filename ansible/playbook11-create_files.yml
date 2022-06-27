@@ -1,0 +1,14 @@
+---
+- name: Create file1
+  copy:
+    dest: /home/vagrant/folder1/file1.txt
+    content: |
+      Text Line1
+      Text {{myText}}
+
+- name: Create file2
+  copy:
+    dest: /home/vagrant/folder1/file2.txt
+    content: |
+      Text Line1
+      Text line2

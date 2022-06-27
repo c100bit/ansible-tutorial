@@ -1,0 +1,16 @@
+---
+- name: Imports
+  hosts: all
+  become: true
+
+  vars:
+    myText: Privet
+
+  tasks:
+    - name: Ping test
+      ping:
+
+    - include: playbook11-create_folders.yml
+
+    - name: Create Files
+      include: playbook11-create_files.yml myText="hello"

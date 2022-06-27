@@ -1,0 +1,27 @@
+---
+- name: Loops
+  hosts: centos
+  become: yes
+
+  tasks:
+    - name: Say Hello
+      debug: msg='Hello {{item}}'
+      loop:
+        - Vasya
+        - Petya
+        - Masha
+
+    - name: Loop until
+      shell: echo -n Z >> myfile.txt && cat myfile.txt
+      register: output
+      delay: 2
+      retries: 10
+      until:  output.stdout.find('ZZZZ') == false
+
+    - debug: var=output.stdout
+
+    - name: INstall
+      yum: name={{item}} state=installed
+      loop:
+        - python
+        - tree

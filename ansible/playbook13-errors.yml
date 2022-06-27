@@ -1,0 +1,31 @@
+---
+- name: Errors
+  hosts: all
+  any_errors_fatal: true
+  become: true
+
+  vars:
+    myText: Privet
+
+  tasks:
+    - name: Task Number 1
+      yum: name=treeeee state=latest
+      ignore_errors: yes
+
+    - name: Task n2
+      shell: echo Hello World
+      register: results
+      # failed_when: results.rc == 0
+      # failed_when: "'World' in results.stdout"
+
+    - name: Task n3
+      shell: cat /etc/file.txt
+      register: results
+
+    - debug:
+        var: results
+
+    - name: Task n4
+      shell: echo Privet
+
+

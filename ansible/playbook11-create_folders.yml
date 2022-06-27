@@ -1,0 +1,6 @@
+---
+- name: Create folder1
+  file: "path=/home/vagrant/folder1 state=directory mode=0755"
+
+- name: Create folder2
+  file: "path=/home/vagrant/folder2 state=directory mode=0755"

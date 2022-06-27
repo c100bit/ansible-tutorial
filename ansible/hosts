@@ -1,0 +1,9 @@
+[PROD]
+centos ansible_host=192.168.56.2
+
+[STAGING]
+ubuntu ansible_host=192.168.56.3
+
+[ALL_LINUX:children]
+PROD
+STAGING

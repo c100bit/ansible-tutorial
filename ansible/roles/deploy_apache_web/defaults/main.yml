@@ -1,0 +1,3 @@
+---
+destin_folder: /var/www/html
+source_folder: ./files
